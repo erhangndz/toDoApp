@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Model, ToDoItem } from './model';
 
 @Component({
   selector: 'app-root',
@@ -6,13 +7,27 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  title = 'toDoApp';
-user = "Erhan";
-items =  [
-  {description:"Breakfast",status:"Done"},
-  {description:"Sports",status:"Not Done"},
-  {description:"Study",status:"Not Done"},
-  {description:"Cleaning",status:"Not Done"}
-];
+model = new Model();
+isDisplay = false;
 
+
+getName() {
+  return this.model.user;
+}
+
+getToDoList(){
+  if(this.isDisplay){
+
+    return this.model.items;
+  }
+  return this.model.items.filter(item=>!item.status);
+
+}
+
+
+addItem(value:string){
+ if(value!=''){
+this.model.items.push(new ToDoItem(value,false))
+ }
+}
 }
